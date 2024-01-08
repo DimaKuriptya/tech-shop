@@ -3,12 +3,6 @@ html, body {
     margin: 0;
 }
 
-header {
-    position: absolute;
-    top: 0;
-    width: 100%;
-}
-
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -16,6 +10,11 @@ header {
 }
 
 .content {
-    margin-top: 100px;
+    margin-top: 80px;
     flex: 1;
+}
+
+#nav {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
