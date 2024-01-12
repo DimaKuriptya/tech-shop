@@ -16,7 +16,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=300, verbose_name="Товар")
+    name = models.CharField(max_length=300, verbose_name="Назва")
     slug = models.SlugField(unique=True, blank=True, null=True, verbose_name="URL")
     description = models.TextField(verbose_name="Опис")
     category_id = models.ForeignKey(
@@ -45,3 +45,6 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товари"
+
+    def __str__(self) -> str:
+        return self.name

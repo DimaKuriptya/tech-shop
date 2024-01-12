@@ -5,5 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <p>Каталог</p>
+    {% for category in categories %}
+    <p>{{ category.name }}</p>
+    {% endfor %}
 {% endblock %}
