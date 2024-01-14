@@ -35,7 +35,7 @@ class Product(models.Model):
         verbose_name="Ціна зі знижкою",
     )
     photo = models.ImageField(
-        upload_to="goods/", blank=True, null=True, verbose_name="Фото"
+        upload_to="goods", blank=True, null=True, verbose_name="Фото"
     )
     storage_amount = models.PositiveIntegerField(default=0, verbose_name="Кількість на складі")
     is_active = models.BooleanField(default=True, verbose_name="Активний товар")
