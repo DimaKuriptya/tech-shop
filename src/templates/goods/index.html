@@ -3,7 +3,7 @@
 {% load goods_tags %}
 
 {% block title %}
-    TECH SHOP
+    TECH SHOP - {{ cat_name }}
 {% endblock %}
 
 {% block content %}
@@ -16,16 +16,10 @@
   </div>
     <div class="col-12 col-md-9">
     <div>
-        <h3 style="margin-top: 32px; margin-bottom: 32px;">
-        {% if cat_name %}
-            {{ cat_name }}
-        {% else %}
-            Всі товари
-        {% endif %}
-        </h3>
+        <h3 style="margin-top: 32px; margin-bottom: 32px;">{{ cat_name }}</h3>
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="max-width: 100%;">
-      {% for product in products %}
+      {% for product in page %}
         <div class="col">
           <a href="#">
           <div class="card shadow-sm">
@@ -55,7 +49,25 @@
         {% empty %}
             <h3>Товарів не знайдено!</h3>
         {% endfor %}
+
       </div>
+        <nav aria-label="Page navigation example" style="margin-top: 32px;">
+          <ul class="pagination">
+            {% if page.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+            {% endif %}
+            {% for page_num in page.paginator.page_range %}
+              {% if page_num >= page.number|add:-2 and page_num <= page.number|add:2 %}
+                <li class="page-item">
+                  <a class="page-link {% if page_num == page.number %}active{% endif %}" href="?page={{ page_num }}">{{ page_num }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            {% if page.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">&raquo;</a></li>
+            {% endif %}
+          </ul>
+        </nav>
     </div>
 </div>
 {% endblock %}
