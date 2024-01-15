@@ -48,3 +48,6 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+    def get_id(self):
+        return str(self.pk).zfill(5)
