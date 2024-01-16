@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Product, Category
 
@@ -18,5 +18,7 @@ def index(request, cat_slug=None):
     return render(request, "goods/index.html", context)
 
 
-def product(request, id):
-    return render(request, "goods/product.html")
+def product_details(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    context = {'product': product}
+    return render(request, "goods/product.html", context)

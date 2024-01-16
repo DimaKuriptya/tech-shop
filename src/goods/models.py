@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -52,3 +53,6 @@ class Product(models.Model):
 
     def get_id(self):
         return str(self.pk).zfill(5)
+
+    def get_absolute_url(self):
+        return reverse("goods:product_details", kwargs={"slug": self.slug})

@@ -1,7 +1,37 @@
 {% extends "base.html" %}
 
 {% block title %}
+    TECH SHOP - {{ product.name }}
 {% endblock  %}
 
 {% block content %}
+    <div class="row" style="margin-top: 32px;">
+        <div class="col-md-5 col-sm-12" style="position: relative;">
+            <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="width: 100%;">
+            {% if product.storage_amount <= 3 %}
+                <p class="ending">Закінчується</p>
+            {% endif %}
+        </div>
+        <div class="col-md-7 col-sm-12 row" style="margin: 32px 0;">
+            <div class="product-info col-12">
+                <h3>{{ product.name }}</h3>
+                <small class="text-body-secondary">id: {{ product.get_id }}</small>
+                <p class="mt-4 mb-3">{{ product.description }}</p>
+                <p>Категорія: <a href="{% url 'goods:view_category' product.category_id.slug %}" class="category">{{ product.category_id }}</a></p>
+            </div>
+            <div class="price-order-block col-sm-12 col-md-12 col-xl-6">
+                <div class="price-discount-detail">
+                    {% if product.discount_price %}
+                    <small class="text-body-secondary new-price price-detail-main">{{ product.discount_price }} грн.</small>
+                    <small class="text-body-secondary old-price price-detail-old">{{ product.price }} грн.</small>
+                    {% else %}
+                    <small class="text-body-secondary price-detail-main">{{ product.price }} грн.</small>
+                    {% endif %}
+                </div>
+                <div>
+                    <a href="#" class="shopping-cart">Купити</a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock  %}
