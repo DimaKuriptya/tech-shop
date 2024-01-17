@@ -28,14 +28,8 @@
               <a class="nav-link" href="#">Корзина</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q" />
-            {% if request.GET.is_discounted %}
-              <input type="hidden" name="is_discounted" value="{{ request.GET.is_discounted }}">
-            {% endif %}
-            {% if request.GET.order_by %}
-              <input type="hidden" name="order_by" value="{{ request.GET.order_by }}">
-            {% endif %}
+          <form class="d-flex" role="search" action="{% url "goods:index" %}">
+            <input class="form-control me-2" type="search" placeholder="Я шукаю..." aria-label="Search" name="q" />
           </form>
           <div class="d-flex">
             <button type="button" class="btn btn-outline-light me-2">Увійти</button>

@@ -17,20 +17,21 @@ def index(request, cat_slug=None):
         products = products.annotate(
             search=SearchVector('id', 'name', 'description')
         ).filter(search=search)
+    if is_discounted == "on":
+        products = products.exclude(discount_price=None)
+    if order_by:
+        products = products.order_by(order_by)
     if cat_slug:
         products = products.filter(category_id__slug=cat_slug)
         cat_name = Category.objects.get(slug=cat_slug).name
     else:
         cat_name = "Всі товари"
-    if is_discounted == "on":
-        products = products.exclude(discount_price=None)
-    if order_by:
-        products = products.order_by(order_by)
 
+    amount = len(products)
     p = Paginator(products, 2)
     page = p.page(page_num)
     form = FilterForm(request.GET)
-    context = {"page": page, "cat_name": cat_name, "form": form}
+    context = {"page": page, "cat_name": cat_name, "form": form, 'amount': amount}
 
     return render(request, "goods/index.html", context)
 

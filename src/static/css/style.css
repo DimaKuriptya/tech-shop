@@ -81,3 +81,11 @@ a {
     padding: 10px 40px;
     border-radius: 10px;
 }
+
+.amount {
+    font-size: 18px;
+    color: white;
+    background-color: #457B9D;
+    border-radius: 50%;
+    padding: 0 3px;
+}

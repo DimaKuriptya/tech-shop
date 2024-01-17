@@ -3,7 +3,7 @@
 {% load goods_tags %}
 
 {% block title %}
-TECH SHOP - {{ cat_name }}
+  TECH SHOP - {{ cat_name }}
 {% endblock %}
 
 {% block content %}
@@ -18,11 +18,11 @@ TECH SHOP - {{ cat_name }}
     <div class="container">
       <form method="get" >
         <div class="row align-items-center">
-          <p class="col-md-3 col-12">
+          <p class="col-md-3 col-12" style="margin: 8px 0;">
             {{ form.is_discounted.label }}:
             {{ form.is_discounted }}
           </p>
-          <p class="col-md-6 col-12">
+          <p class="col-md-6 col-12" style="margin-bottom: 23px;">
             {{ form.order_by.label }}:
             {{ form.order_by }}
           </p>
@@ -34,7 +34,11 @@ TECH SHOP - {{ cat_name }}
       </form>
     </div>
     <div>
-      <h3 style="margin-top: 32px; margin-bottom: 32px;">{{ cat_name }}</h3>
+      {% if request.GET.q %}
+        <h3 style="margin-top: 32px; margin-bottom: 32px;">Результати за пошуком: "{{ request.GET.q }}" <span class="amount">{{ amount }}</span></h3>
+      {% else %}
+        <h3 style="margin-top: 32px; margin-bottom: 32px;">{{ cat_name }} <span class="amount">{{ amount }}</span></h3>
+      {% endif %}
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="max-width: 100%;">
       {% for product in page %}
@@ -68,6 +72,7 @@ TECH SHOP - {{ cat_name }}
       <h3>Товарів не знайдено!</h3>
       {% endfor %}
     </div>
+    {% if amount > 0 %}
     <nav aria-label="Page navigation example" style="margin-top: 32px;">
       <ul class="pagination">
         {% if page.has_previous %}
@@ -85,6 +90,7 @@ TECH SHOP - {{ cat_name }}
         {% endif %}
       </ul>
     </nav>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
