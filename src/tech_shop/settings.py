@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "debug_toolbar",
+    "django.contrib.postgres",
 
     "main.apps.MainConfig",
     "goods.apps.GoodsConfig",

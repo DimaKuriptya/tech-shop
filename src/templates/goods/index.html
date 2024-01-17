@@ -8,17 +8,29 @@ TECH SHOP - {{ cat_name }}
 
 {% block content %}
 <div class="page row">
-  <div class="col-12 col-md-3" style="margin-top: 32px;">
+  <div class="col-12 col-md-3">
     {% get_categories as categories %}
     {% for category in categories %}
     <p><a href="{% url 'goods:view_category' category.slug %}" class='category'>{{ category.name }}</a></p>
     {% endfor %}
   </div>
-  <div class="col-12 col-md-9">
-    <div>
-      <form method="get">
-        {{ form.as_p }}
-        <input type="submit" value="Застосувати">
+  <div class="col-12 col-lg-9">
+    <div class="container">
+      <form method="get" >
+        <div class="row align-items-center">
+          <p class="col-md-3 col-12">
+            {{ form.is_discounted.label }}:
+            {{ form.is_discounted }}
+          </p>
+          <p class="col-md-6 col-12">
+            {{ form.order_by.label }}:
+            {{ form.order_by }}
+          </p>
+          {% if request.GET.q %}
+            <input type="hidden" value="{{ request.GET.q }}" name="q">
+          {% endif %}
+          <input type="submit" value="Застосувати" class="btn btn-primary col-12 col-md-3">
+        </div>
       </form>
     </div>
     <div>
@@ -59,7 +71,7 @@ TECH SHOP - {{ cat_name }}
     <nav aria-label="Page navigation example" style="margin-top: 32px;">
       <ul class="pagination">
         {% if page.has_previous %}
-          <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+          <li class="page-item"><a class="page-link" href="?{% create_get_params page=page.previous_page_number %}">&laquo;</a></li>
         {% endif %}
         {% for page_num in page.paginator.page_range %}
           {% if page_num >= page.number|add:-2 and page_num <= page.number|add:2 %} 
@@ -69,7 +81,7 @@ TECH SHOP - {{ cat_name }}
           {% endif %}
         {% endfor %}
         {% if page.has_next %}
-          <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">&raquo;</a></li>
+          <li class="page-item"><a class="page-link" href="?{% create_get_params page=page.next_page_number %}">&raquo;</a></li>
         {% endif %}
       </ul>
     </nav>

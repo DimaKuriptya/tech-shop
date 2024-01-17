@@ -8,4 +8,7 @@ class FilterForm(forms.Form):
         ('-price', 'Від дорогих до дешевих')
     )
     is_discounted = forms.BooleanField(label='Товар зі знижкою', required=False)
-    order_by = forms.ChoiceField(choices=choices, label='Сортувати')
+    order_by = forms.ChoiceField(
+        choices=choices, label='Сортувати', required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
