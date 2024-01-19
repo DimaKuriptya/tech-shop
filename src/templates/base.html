@@ -43,14 +43,14 @@
               {% endif %}
               </a>
               <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Профіль</a></li>
+                <li><a class="dropdown-item" href="{% url "users:profile" %}">Профіль</a></li>
                 <li><a class="dropdown-item" href="{% url "users:logout" %}">Вийти</a></li>
               </ul>
             </ul>
           </li>
             {% else %}
               <a type="button" class="btn btn-outline-light me-2" href="{% url "users:login" %}">Увійти</a>
-              <button type="button" class="btn btn-warning">Зареєструватися</button>
+              <a type="button" class="btn btn-warning" href="{% url "users:register" %}">Зареєструватися</a>
             {% endif %}
           </div>
         </div>

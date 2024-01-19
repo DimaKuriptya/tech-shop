@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    TECH SHOP - Профіль
+{% endblock  %}
+
+{% block content %}
+    <p>
+        {{ request.user.username }}
+    </p>
+{% endblock  %}

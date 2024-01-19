@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    TECH SHOP - Авторизація
+    TECH SHOP - Реєстрація
 {% endblock  %}
 
 {% block content %}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Увійти" class='form-control'>
+    <input type="submit" value="Зареєструватися" class="form-control">
 </form>
 {% endblock  %}
