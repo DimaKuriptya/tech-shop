@@ -32,8 +32,26 @@
             <input class="form-control me-2" type="search" placeholder="Я шукаю..." aria-label="Search" name="q" />
           </form>
           <div class="d-flex">
-            <button type="button" class="btn btn-outline-light me-2">Увійти</button>
-            <button type="button" class="btn btn-warning">Зареєструватися</button>
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0;">
+              {% if request.user.image %}
+                <img src="{{ request.user.image.url }}" alt="{{ request.user.username }}" class='mini-profile-pic'>
+              {% else %}
+                <img src="{% static 'users/default-avatar-profile.jpg' %}" alt="default user photo" class='mini-profile-pic'>
+              {% endif %}
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Профіль</a></li>
+                <li><a class="dropdown-item" href="{% url "users:logout" %}">Вийти</a></li>
+              </ul>
+            </ul>
+          </li>
+            {% else %}
+              <a type="button" class="btn btn-outline-light me-2" href="{% url "users:login" %}">Увійти</a>
+              <button type="button" class="btn btn-warning">Зареєструватися</button>
+            {% endif %}
           </div>
         </div>
       </div>

@@ -24,7 +24,8 @@ from tech_shop import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('main.urls', namespace='main')),
-    path('', include('goods.urls', namespace='goods'))
+    path('', include('goods.urls', namespace='goods')),
+    path('users/', include('users.urls', namespace='users'))
 ]
 
 
