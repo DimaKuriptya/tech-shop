@@ -1,21 +1,13 @@
-from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import User
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(max_length=150, label='Логін', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(max_length=150, label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-
     class Meta:
         model = User
 
 
-class RegisterForm(forms.ModelForm):
-    username = forms.CharField(max_length=150, label='Логін', widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(max_length=150, label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    retype_password = forms.CharField(max_length=150, label='Пароль ще раз', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-
+class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'password']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'password1', 'password2']

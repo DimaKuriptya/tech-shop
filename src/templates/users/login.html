@@ -5,9 +5,21 @@
 {% endblock  %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Увійти" class='form-control'>
-</form>
+<div class="row justify-content-center">
+    <form method="post" class='col-sm-12 col-md-6'>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            {{ form.non_field_errors }}
+        {% endif %}
+        <p>
+            <label for="id_username">Логін:</label>
+            <input type="text" name='username', id='id_username' class='form-control' value='{% if form.username.value %}{{ form.username.value }}{% endif %}' required>
+        </p>
+        <p>
+            <label for="id_password">Пароль:</label>
+            <input type="password" name='password' id='id_password' class='form-control' value='{% if form.password.value %}{{ form.password.value }}{% endif %}' required>
+        </p>
+        <input type="submit" value="Увійти" class='form-control btn btn-primary'>
+    </form>
+</div>
 {% endblock  %}

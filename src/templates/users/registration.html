@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    TECH SHOP - Реєстрація
+{% endblock  %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <form method="post" class='col-sm-12 col-md-6'>
+        {% csrf_token %}
+        {% if form.errors %}
+            {{ form.errors }}
+        {% endif %}
+        <p>
+            <label for="id_username">Ім'я:</label>
+            <input type="text" name='first_name', id='id_first_name' class='form-control' value='{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}' required>
+        </p>
+        <p>
+            <label for="id_last_name">Прізвище:</label>
+            <input type="text" name='last_name', id='id_last_name' class='form-control' value='{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}' required>
+        </p>
+        <p>
+            <label for="id_email">Ел. пошта:</label>
+            <input type="email" name='email', id='id_email' class='form-control' value='{% if form.email.value %}{{ form.email.value }}{% endif %}' required>
+        </p>
+        <p>
+            <label for="id_phone_number">Номер телефону:</label>
+            <input type="text" name='phone_number', id='id_phone_number' class='form-control' value='{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}' required>
+        </p>
+        <p>
+            <label for="id_password1">Пароль:</label>
+            <input type="password" name='password1' id='id_password1' class='form-control' value='{% if form.password1.value %}{{ form.password1.value }}{% endif %}' required>
+        </p>
+        <p>
+            <label for="id_password2">Пароль ще раз:</label>
+            <input type="password" name='password2' id='id_password2' class='form-control' value='{% if form.password2.value %}{{ form.password2.value }}{% endif %}' required>
+        </p>
+        <input type="submit" value="Зареєструватися" class='form-control btn btn-primary'>
+    </form>
+</div>
+{% endblock  %}
