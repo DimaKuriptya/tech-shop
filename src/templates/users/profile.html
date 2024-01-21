@@ -1,11 +1,42 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     TECH SHOP - Профіль
 {% endblock  %}
 
 {% block content %}
-    <p>
-        {{ request.user.username }}
-    </p>
+<div class="row">
+    <div class="col-12 col-md-5" style="margin-bottom: 32px;">
+        {% block profile %}
+        <div class="profile-info">
+                {% if user.image %}
+                <img src="{{ user.image.url }}" alt="{{ user.first_name }} photo" class='profile-pic'>
+                {% else %}
+                <img src="{% static 'users/default-avatar-profile.jpg' %}" alt="default profile pic" class='profile-pic'>
+                {% endif %}
+            <p>
+                <span class="profile-label">Ім'я:</span><br>
+                {{ user.first_name }}
+            </p>
+            <p>
+                <span class="profile-label">Прізвище:</span><br>
+                {{ user.last_name }}
+            </p>
+            <p>
+                <span class="profile-label">Ел. пошта:</span><br>
+                {{ user.email }}
+            </p>
+            <p>
+                <span class="profile-label">Номер телефону:</span><br>
+                {{ user.phone_number }}
+            </p>
+        </div>
+            <a href="{% url "users:edit_profile" %}" class="btn btn-primary" style="width: 100%;">Редагувати профіль</a>
+        {% endblock  %}
+    </div>
+    <div class="col-12 col-md-6">
+        <h3 style="padding-left: 15px;">Моя корзина</h3>
+    </div>
+</div>
 {% endblock  %}

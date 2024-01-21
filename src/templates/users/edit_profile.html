@@ -1,0 +1,46 @@
+{% extends "users/profile.html" %}
+{% load static %}
+
+{% block profile %}
+<form method='post' enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if form.errors %}
+        {{ form.errors }}
+    {% endif %}
+    <p>
+        {% if user.image %}
+        <img src="{{ user.image.url }}" alt="{{ user.first_name }} photo" class='profile-pic'>
+        {% else %}
+        <img src="{% static 'users/default-avatar-profile.jpg' %}" alt="default profile pic" class='profile-pic'>
+        {% endif %}
+    </p>
+    <p>
+        <label for="id_image"><span class="profile-label">Фото:</span><br></label>
+        <input type="file" name='image' id='id_image' class='form-control' value='{{ user.image }}'>
+    </p>
+    <p>
+        <label for="id_first_name"><span class="profile-label">Ім'я:</span><br></label>
+        <input type="text" name='first_name' id='id_first_name' class='form-control' value='{% if request.POST.first_name %}{{ request.POST.first_name }}{% else %}{{ user.first_name }}{% endif %}'>
+    </p>
+    <p>
+        <label for="id_last_name"><span class="profile-label">Прізвище:</span><br></label>
+        <input type="text" name='last_name' id='id_last_name' class='form-control' value='{% if request.POST.last_name %}{{ request.POST.last_name }}{% else %}{{ user.last_name }}{% endif %}'>
+    </p>
+    <p>
+        <label for="id_email"><span class="profile-label">Ел. пошта:</span><br></label>
+        <input type="email" name='email' id='id_email' class='form-control' value='{% if request.POST.email %}{{ request.POST.email }}{% else %}{{ user.email }}{% endif %}'>
+    </p>
+    <p>
+        <label for="id_phone_number"><span class="profile-label">Номер телефону:</span><br></label>
+        <input type="text" name='phone_number' id='id_phone_number' class='form-control' value='{% if request.POST.phone_number %}{{ request.POST.phone_number }}{% else %}{{ user.phone_number }}{% endif %}'>
+    </p>
+    <div class="row" style='margin-top: 20px;'>
+        <div class="col-5">
+            <input type="submit" value='Зберегти' class='btn btn-success' style='width: 100%;'>
+        </div>
+        <div class="col-5 cancel-block">
+            <a href="{% url 'users:profile' %}" class='link-hover'>Скасувати</a>
+        </div>
+    </div>
+</form>
+{% endblock  %}

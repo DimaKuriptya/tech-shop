@@ -11,7 +11,7 @@
   <div class="col-12 col-md-3">
     {% get_categories as categories %}
     {% for category in categories %}
-    <p><a href="{% url 'goods:view_category' category.slug %}" class='category'>{{ category.name }}</a></p>
+    <p><a href="{% url 'goods:view_category' category.slug %}" class='link-hover'>{{ category.name }}</a></p>
     {% endfor %}
   </div>
   <div class="col-12 col-lg-9">

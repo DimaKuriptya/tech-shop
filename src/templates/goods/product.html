@@ -17,7 +17,7 @@
                 <h3>{{ product.name }}</h3>
                 <small class="text-body-secondary">id: {{ product.get_id }}</small>
                 <p class="mt-4 mb-3">{{ product.description }}</p>
-                <p>Категорія: <a href="{% url 'goods:view_category' product.category_id.slug %}" class="category">{{ product.category_id }}</a></p>
+                <p>Категорія: <a href="{% url 'goods:view_category' product.category_id.slug %}" class="link-hover">{{ product.category_id }}</a></p>
             </div>
             <div class="price-order-block col-sm-12 col-md-12 col-xl-6">
                 <div class="price-discount-detail">

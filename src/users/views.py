@@ -1,13 +1,15 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, UpdateForm
 
 
 def register_user(request):
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.username = form.cleaned_data['email']
+            user.save()
             login(request, user)
             return redirect(to="goods:index")
     else:
@@ -43,3 +45,17 @@ def logout_user(request):
 
 def profile(request):
     return render(request, 'users/profile.html')
+
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UpdateForm(data=request.POST, instance=request.user, files=request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = form.cleaned_data['email']
+            user.save()
+            return redirect('users:profile')
+    else:
+        form = UpdateForm()
+    context = {'form': form}
+    return render(request, 'users/edit_profile.html', context)

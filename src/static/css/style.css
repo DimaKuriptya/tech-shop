@@ -39,7 +39,7 @@ a {
     color: red !important;
 }
 
-.category:hover {
+.link-hover:hover {
     text-decoration: underline;
 }
 
@@ -93,4 +93,26 @@ a {
 .mini-profile-pic {
     width: 40px;
     border-radius: 50%;
+}
+
+.profile-info {
+    padding: 0 15px;
+}
+
+.profile-pic {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.profile-label {
+    color: #7d7d7d;
+    font-style: italic;
+    font-size: 13px;
+}
+
+.cancel-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
