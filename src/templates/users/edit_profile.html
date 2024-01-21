@@ -1,11 +1,20 @@
 {% extends "users/profile.html" %}
 {% load static %}
+{% load users_tags %}
 
 {% block profile %}
 <form method='post' enctype="multipart/form-data">
     {% csrf_token %}
     {% if form.errors %}
-        {{ form.errors }}
+        {% get_errors form as errors %}
+        <div class="message-container">
+            {% for error in errors %}
+                <div class="alert alert-danger alert-dismissible message" role="alert">
+                    {{ error|striptags }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
     <p>
         {% if user.image %}

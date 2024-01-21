@@ -1,5 +1,7 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm, LoginForm, UpdateForm
 
 
@@ -11,6 +13,7 @@ def register_user(request):
             user.username = form.cleaned_data['email']
             user.save()
             login(request, user)
+            messages.success(request, 'Ви успішно створили новий аккаунт')
             return redirect(to="goods:index")
     else:
         form = RegistrationForm()
@@ -30,6 +33,10 @@ def login_user(request):
         )
         if user:
             login(request, user)
+            messages.success(request, 'Успішний вхід в аккаунт')
+            next_page = request.POST.get('next', None)
+            if next_page:
+                return redirect(next_page)
             return redirect(to='goods:index')
     else:
         form = LoginForm()
@@ -37,16 +44,20 @@ def login_user(request):
     return render(request, "users/login.html", context)
 
 
+@login_required
 def logout_user(request):
     if request.user.is_authenticated:
         logout(request)
+        messages.success(request, 'Успішний вихід із аккаунту')
     return redirect(to='goods:index')
 
 
+@login_required(login_url='users:login')
 def profile(request):
     return render(request, 'users/profile.html')
 
 
+@login_required(login_url='users:login')
 def edit_profile(request):
     if request.method == 'POST':
         form = UpdateForm(data=request.POST, instance=request.user, files=request.FILES)
@@ -54,6 +65,7 @@ def edit_profile(request):
             user = form.save(commit=False)
             user.username = form.cleaned_data['email']
             user.save()
+            messages.success(request, 'Успішна зміна даних профілю')
             return redirect('users:profile')
     else:
         form = UpdateForm()

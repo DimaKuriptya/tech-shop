@@ -19,6 +19,9 @@
             <label for="id_password">Пароль:</label>
             <input type="password" name='password' id='id_password' class='form-control' value='{% if form.password.value %}{{ form.password.value }}{% endif %}' required>
         </p>
+        {% if request.GET.next %}
+            <input type="hidden" name='next' value='{{ request.GET.next }}'>
+        {% endif %}
         <input type="submit" value="Увійти" class='form-control btn btn-primary'>
     </form>
 </div>

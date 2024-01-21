@@ -116,3 +116,22 @@ a {
     justify-content: center;
     align-items: center;
 }
+
+@keyframes message-disappear {
+    95% {opacity: 100%; display: block;}
+    100% {opacity: 0%; display: none;}
+}
+
+.message-container {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.message {
+    z-index: 9999;
+    animation-name: message-disappear;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+}
