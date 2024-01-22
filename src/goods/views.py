@@ -11,7 +11,7 @@ def index(request, cat_slug=None):
     page_num = request.GET.get("page", 1)
     search = request.GET.get("q", None)
 
-    products = Product.objects.filter(is_active=True).filter(storage_amount__gte=1)
+    products = Product.objects.filter(is_active=True).filter(storage_quantity__gte=1)
 
     if search:
         products = products.annotate(
@@ -27,11 +27,11 @@ def index(request, cat_slug=None):
     else:
         cat_name = "Всі товари"
 
-    amount = len(products)
+    quantity = len(products)
     p = Paginator(products, 2)
     page = p.page(page_num)
     form = FilterForm(request.GET)
-    context = {"page": page, "cat_name": cat_name, "form": form, 'amount': amount}
+    context = {"page": page, "cat_name": cat_name, "form": form, 'quantity': quantity}
 
     return render(request, "goods/index.html", context)
 

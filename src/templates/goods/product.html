@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-5 col-sm-12" style="position: relative;">
             <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="width: 100%;">
-            {% if product.storage_amount <= 3 %}
+            {% if product.storage_quantity <= 3 %}
                 <p class="ending">Закінчується</p>
             {% endif %}
         </div>

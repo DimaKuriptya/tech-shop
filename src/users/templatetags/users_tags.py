@@ -6,6 +6,7 @@ register = Library()
 @register.simple_tag
 def get_errors(form):
     errors = []
-    for _, error in form.errors.items():
-        errors.append(error)
+    for _, value in form.errors.items():
+        for error in value:
+            errors.append(error)
     return errors

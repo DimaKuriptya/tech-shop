@@ -38,7 +38,7 @@ class Product(models.Model):
     photo = models.ImageField(
         upload_to="goods", blank=True, null=True, verbose_name="Фото"
     )
-    storage_amount = models.PositiveIntegerField(default=0, verbose_name="Кількість на складі")
+    storage_quantity = models.PositiveIntegerField(default=0, verbose_name="Кількість на складі")
     is_active = models.BooleanField(default=True, verbose_name="Активний товар")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата оновлення")
@@ -46,13 +46,17 @@ class Product(models.Model):
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товари"
-        ordering = ('id',)
 
     def __str__(self) -> str:
         return self.name
 
     def get_id(self):
         return str(self.pk).zfill(5)
+
+    def sell_price(self):
+        if self.discount_price:
+            return self.discount_price
+        return self.price
 
     def get_absolute_url(self):
         return reverse("goods:product_details", kwargs={"slug": self.slug})
