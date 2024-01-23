@@ -1,0 +1,36 @@
+{% load static %}
+{% load carts_tags %}
+
+<h3 style="padding-left: 15px;">Моя корзина</h3>
+{% get_cart as goods %}
+{% if goods %}
+    {% for cart_item in goods %}
+    <div class="row">
+        <div class="col-4 col-sm-2">
+            {% if cart_item.product.photo %}
+            <img src="{{ cart_item.product.photo.url }}" alt="{{ cart_item.product.name }}">
+            {% else %}
+            <img src="{% static 'goods/No-image-found.jpg' %}" alt="">
+            {% endif %}
+        </div>
+        <div class="col-8 col-sm-10" style='display: flex; flex-direction: column; justify-content: center;'>
+            <div>
+                <a href="{% url "goods:product_details" cart_item.product.slug %}" class='link-hover'>
+                    <b>{{ cart_item.product.name }}</b>
+                </a>
+            </div>
+            <div style='display: flex;'>
+                <p style='margin-right: 20px;'>{{ cart_item.quantity }}</p>
+                <p>{{ cart_item.product_price }} грн.</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div>
+        <h5>Всього {{ goods.total_quantity }} товарів на суму {{ goods.total_price }} грн.</h5>
+        <a href="#" class='btn btn-success'>Оформити замовлення</a>
+    </div>
+{% else %}
+    <p>В корзині порожньо</p>
+    <a href="{% url "goods:index" %}" class='btn btn-success'>Розпочати покупки</a>
+{% endif %}

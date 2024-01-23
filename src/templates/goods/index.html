@@ -42,7 +42,7 @@
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" style="max-width: 100%;">
       {% for product in page %}
-      <div class="col">
+      <div class="col" style='position: relative;'>
         <a href="{{ product.get_absolute_url }}">
           <div class="card shadow-sm">
             {% if product.photo %}
@@ -57,15 +57,18 @@
                 <small class="text-body-secondary">id: {{ product.get_id }}</small>
                 <div class="discount-block">
                   {% if product.discount_price %}
-                  <small class="text-body-secondary new-price">{{ product.discount_price }} грн.</small>
-                  <small class="text-body-secondary old-price">{{ product.price }} грн.</small>
+                    <small class="text-body-secondary new-price">{{ product.discount_price }} грн.</small>
+                    <small class="text-body-secondary old-price">{{ product.price }} грн.</small>
                   {% else %}
-                  <small class="text-body-secondary">{{ product.price }} грн.</small>
+                    <small class="text-body-secondary">{{ product.price }} грн.</small>
                   {% endif %}
                 </div>
               </div>
             </div>
           </div>
+        </a>
+        <a href="{% url "carts:cart_add" product.slug %}" class="cart-image-container">
+          <img src="{% static 'goods/cart.svg' %}" alt="add to the cart" class='cart-image'>
         </a>
       </div>
       {% empty %}
