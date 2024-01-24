@@ -5,15 +5,15 @@
 {% get_cart as goods %}
 {% if goods %}
     {% for cart_item in goods %}
-    <div class="row">
-        <div class="col-4 col-sm-2">
+    <div class="row align-items-center">
+        <div class="col-4 col-lg-2">
             {% if cart_item.product.photo %}
             <img src="{{ cart_item.product.photo.url }}" alt="{{ cart_item.product.name }}">
             {% else %}
             <img src="{% static 'goods/No-image-found.jpg' %}" alt="">
             {% endif %}
         </div>
-        <div class="col-8 col-sm-10" style='display: flex; flex-direction: column; justify-content: center;'>
+        <div class="col-6 col-lg-9" style='display: flex; flex-direction: column; justify-content: center;'>
             <div>
                 <a href="{% url "goods:product_details" cart_item.product.slug %}" class='link-hover'>
                     <b>{{ cart_item.product.name }}</b>
@@ -23,6 +23,11 @@
                 <p style='margin-right: 20px;'>{{ cart_item.quantity }}</p>
                 <p>{{ cart_item.product_price }} грн.</p>
             </div>
+        </div>
+        <div class="col-2 col-lg-1">
+            <a href="{% url "carts:cart_delete" cart_item.product.slug %}">
+                <img src="{% static "carts/rubbish-bin.svg" %}" alt="delete product" style='width: 80%;'>
+            </a>
         </div>
     </div>
     {% endfor %}

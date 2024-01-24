@@ -7,7 +7,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-12 col-md-5" style="margin-bottom: 32px;">
+    <div class="col-12 col-lg-5" style="margin-bottom: 32px;">
         {% block profile %}
         <div class="profile-info">
                 {% if user.image %}
@@ -35,7 +35,7 @@
             <a href="{% url "users:edit_profile" %}" class="btn btn-primary" style="width: 100%;">Редагувати профіль</a>
         {% endblock  %}
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-lg-7">
         {% include 'carts/includes/cart.html' %}
     </div>
 </div>

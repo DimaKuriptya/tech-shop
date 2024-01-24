@@ -6,4 +6,5 @@ register = Library()
 
 @register.simple_tag(takes_context=True)
 def get_cart(context):
-    return Cart.objects.filter(owner=context['user'])
+    if context['user'].is_authenticated:
+        return Cart.objects.filter(owner=context['user'])
