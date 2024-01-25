@@ -1,7 +1,6 @@
 {% load static %}
 {% load carts_tags %}
 
-<h3 style="padding-left: 15px;">Моя корзина</h3>
 {% get_cart as goods %}
 {% if goods %}
     {% for cart_item in goods %}
@@ -25,7 +24,8 @@
             </div>
         </div>
         <div class="col-2 col-lg-1">
-            <a href="{% url "carts:cart_delete" cart_item.product.slug %}">
+            <a href="{% url "carts:cart_delete" %}" class='remove-from-cart' data-cart-id="{{ cart_item.id }}">
+                {% csrf_token %}
                 <img src="{% static "carts/rubbish-bin.svg" %}" alt="delete product" style='width: 80%;'>
             </a>
         </div>

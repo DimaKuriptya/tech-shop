@@ -29,7 +29,10 @@
                     {% endif %}
                 </div>
                 <div>
-                    <a href="{% url "carts:cart_add" product.slug %}" class="shopping-cart">Купити</a>
+                    <a href="{% url "carts:cart_add" %}" class="shopping-cart add-to-cart" data-product-id='{{ product.id }}'>
+                        {% csrf_token %}
+                        Купити
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load goods_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,6 +15,8 @@
   </head>
   <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="{% static "js/jquery/jquery-3.7.0.min.js" %}"></script>
+    <script src="{% static 'js/jquery-ajax.js' %}"></script>
     {% if messages %}
       <div class="message-container">
         {% for message in messages %}
@@ -36,12 +39,27 @@
         <a class="navbar-brand" href="{% url 'goods:index' %}">TECH SHOP</a>
         <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="navbar-collapse collapse" id="navbarCollapse" style="">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'main:about' %}">Про нас</a>
+          <ul class="navbar-nav me-auto mb-md-0">
+            <li class="nav-item" style='display: flex; align-items: center; margin-right: 7px;'>
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0;">
+                  Каталог
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                  <li><a class='dropdown-item' href="{% url 'goods:index' %}">Всі товари</a></li>
+                  {% get_categories as categories %}
+                  {% for category in categories %}
+                  <li><a class='dropdown-item' href="{% url 'goods:view_category' category.slug %}">{{ category.name }}</a></li>
+                  {% endfor %}
+                </ul>
+              </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Корзина</a>
+              <a class="nav-link active" id="cart-nav" data-bs-toggle="modal" data-bs-target="#exampleModal">Корзина<span id='goods-in-cart-count'>10</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'main:about' %}">Про нас</a>
             </li>
           </ul>
           <form class="d-flex" role="search" action="{% url "goods:index" %}">
@@ -64,14 +82,31 @@
               </ul>
             </ul>
           </li>
-            {% else %}
-              <a type="button" class="btn btn-outline-light me-2" href="{% url "users:login" %}">Увійти</a>
-              <a type="button" class="btn btn-warning" href="{% url "users:register" %}">Зареєструватися</a>
-            {% endif %}
-          </div>
+          {% else %}
+          <a type="button" class="btn btn-outline-light me-2" href="{% url "users:login" %}">Увійти</a>
+          <a type="button" class="btn btn-warning" href="{% url "users:register" %}">Зареєструватися</a>
+          {% endif %}
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
+  
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Моя корзина</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="cart-items-container">
+        {% include 'carts/includes/cart.html' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
     <div class="wrapper">
       <div class="container content">
         {% block content %}

@@ -67,7 +67,8 @@
             </div>
           </div>
         </a>
-        <a href="{% url "carts:cart_add" product.slug %}" class="cart-image-container">
+        <a href="{% url "carts:cart_add" %}" class="cart-image-container add-to-cart" data-product-id='{{ product.id }}'>
+          {% csrf_token %}
           <img src="{% static 'goods/cart.svg' %}" alt="add to the cart" class='cart-image'>
         </a>
       </div>
