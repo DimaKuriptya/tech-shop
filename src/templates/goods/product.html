@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     TECH SHOP - {{ product.name }}
@@ -19,7 +20,7 @@
                 <p class="mt-4 mb-3">{{ product.description }}</p>
                 <p>Категорія: <a href="{% url 'goods:view_category' product.category_id.slug %}" class="link-hover">{{ product.category_id }}</a></p>
             </div>
-            <div class="price-order-block col-sm-12 col-md-12 col-xl-6">
+            <div class="price-order-block col-sm-12 col-md-12 col-xl-7">
                 <div class="price-discount-detail">
                     {% if product.discount_price %}
                     <small class="text-body-secondary new-price price-detail-main">{{ product.discount_price }} грн.</small>
@@ -32,6 +33,7 @@
                     <a href="{% url "carts:cart_add" %}" class="shopping-cart add-to-cart" data-product-id='{{ product.id }}'>
                         {% csrf_token %}
                         Купити
+                        <img src="{% static 'goods/cart.svg' %}" style='width: 20px;'>
                     </a>
                 </div>
             </div>

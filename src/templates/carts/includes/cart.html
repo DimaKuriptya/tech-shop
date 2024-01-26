@@ -19,7 +19,17 @@
                 </a>
             </div>
             <div style='display: flex;'>
-                <p style='margin-right: 20px;'>{{ cart_item.quantity }}</p>
+                <p class='input-group' style='margin-right: 20px; display: flex;'>
+                    <button class="btn decrement" data-cart-change-url="{% url "carts:cart_change" %}" data-cart-id="{{ cart_item.id }}">
+                        {% csrf_token %}
+                        -
+                    </button>
+                        <input type="text" class='form-control number' value="{{ cart_item.quantity }}" style='margin: 0 10px;'>
+                    <button class="btn increment" data-cart-change-url="{% url "carts:cart_change" %}" data-cart-id="{{ cart_item.id }}">
+                        {% csrf_token %}
+                        +
+                    </button>
+                </p>
                 <p>{{ cart_item.product_price }} грн.</p>
             </div>
         </div>

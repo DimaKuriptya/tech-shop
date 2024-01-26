@@ -17,7 +17,8 @@ def cart_add(request):
         # messages.success(request, 'Товар успішно додано до корзини')
     cart_items_html = render_to_string('carts/includes/cart.html', request=request)
     response_data = {
-        'cart_items_html': cart_items_html
+        'cart_items_html': cart_items_html,
+        'message': 'Товар успішно додано до корзини'
     }
     return JsonResponse(response_data)
 
@@ -32,6 +33,21 @@ def cart_delete(request):
     cart_items_html = render_to_string('carts/includes/cart.html', request=request)
     response_data = {
         'quantity_deleted': quantity_deleted,
+        'cart_items_html': cart_items_html
+    }
+    return JsonResponse(response_data)
+
+
+def cart_change(request):
+    cart_id = request.POST.get('cart_id')
+    quantity = request.POST.get('quantity')
+
+    cart = Cart.objects.get(id=cart_id)
+    cart.quantity = quantity
+    cart.save()
+
+    cart_items_html = render_to_string('carts/includes/cart.html', request=request)
+    response_data = {
         'cart_items_html': cart_items_html
     }
     return JsonResponse(response_data)
