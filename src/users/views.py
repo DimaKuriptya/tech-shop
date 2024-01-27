@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from carts.models import Cart
 from .forms import RegistrationForm, LoginForm, UpdateForm
 
 
@@ -26,6 +27,7 @@ def login_user(request):
         form = LoginForm(data=request.POST)
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
+        session_key = request.session.session_key
         user = authenticate(
             request,
             username=username,
@@ -33,6 +35,7 @@ def login_user(request):
         )
         if user:
             login(request, user)
+            Cart.objects.filter(session_key=session_key).update(owner=request.user)
             messages.success(request, 'Успішний вхід в аккаунт')
             next_page = request.POST.get('next', None)
             if next_page:

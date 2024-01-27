@@ -1,11 +1,11 @@
 from django.http import JsonResponse
-from django.contrib import messages
 from django.template.loader import render_to_string
 from .models import Cart
 
 
 def cart_add(request):
     product_id = request.POST.get('product_id')
+
     if request.user.is_authenticated:
         carts = Cart.objects.filter(owner=request.user, product_id=product_id)
         if carts.exists():
@@ -14,7 +14,15 @@ def cart_add(request):
             cart.save()
         else:
             Cart.objects.create(owner=request.user, product_id=product_id)
-        # messages.success(request, 'Товар успішно додано до корзини')
+    else:
+        carts = Cart.objects.filter(session_key=request.session.session_key, product_id=product_id)
+        if carts.exists():
+            cart = carts.first()
+            cart.quantity += 1
+            cart.save()
+        else:
+            Cart.objects.create(session_key=request.session.session_key, product_id=product_id)
+
     cart_items_html = render_to_string('carts/includes/cart.html', request=request)
     response_data = {
         'cart_items_html': cart_items_html,
@@ -25,11 +33,17 @@ def cart_add(request):
 
 def cart_delete(request):
     cart_id = request.POST.get('cart_id')
+
     if request.user.is_authenticated:
         cart = Cart.objects.get(owner=request.user, id=cart_id)
         quantity_deleted = cart.quantity
         cart.delete()
-        # messages.success(request, 'Товар успішно видалено з корзини')
+    else:
+        cart = Cart.objects.get(session_key=request.session.session_key, id=cart_id)
+        quantity_deleted = cart.quantity
+        cart.delete()
+
+
     cart_items_html = render_to_string('carts/includes/cart.html', request=request)
     response_data = {
         'quantity_deleted': quantity_deleted,
