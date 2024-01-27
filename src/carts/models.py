@@ -30,7 +30,9 @@ class Cart(models.Model):
     objects = CartQueryset().as_manager()
 
     def __str__(self):
-        return f'{self.owner.email} wants to buy {self.quantity}x of {self.product.name}'
+        if self.owner:
+            return f'{self.owner.email} wants to buy {self.quantity}x of {self.product.name}'
+        return f'session key {self.session_key} wants to buy {self.quantity}x of {self.product.name}'
 
     def product_price(self):
         return round(self.product.sell_price() * self.quantity, 2)

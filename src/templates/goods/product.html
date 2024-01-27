@@ -30,7 +30,7 @@
                     {% endif %}
                 </div>
                 <div>
-                    <a href="{% url "carts:cart_add" %}" class="shopping-cart add-to-cart" data-product-id='{{ product.id }}'>
+                    <a href="{% url "carts:cart_add" %}" class="shopping-cart add-to-cart buy" data-product-id='{{ product.id }}'>
                         {% csrf_token %}
                         Купити
                         <img src="{% static 'goods/cart.svg' %}" style='width: 20px;'>
