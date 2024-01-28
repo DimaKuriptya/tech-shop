@@ -68,7 +68,7 @@ def login_user(request):
                         cart.delete()
                     else:
                         cart.owner = request.user
-                        del cart.session_key
+                        cart.session_key = None
                         cart.save()
 
             messages.success(request, "Успішний вхід в аккаунт")

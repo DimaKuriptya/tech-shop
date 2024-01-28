@@ -6,13 +6,19 @@
   TECH SHOP - {{ cat_name }}
 {% endblock %}
 
+{% block catalog %}
+{% endblock  %}
+
 {% block content %}
 <div class="page row">
   <div class="col-12 col-md-3">
-    {% get_categories as categories %}
-    {% for category in categories %}
-    <p><a href="{% url 'goods:view_category' category.slug %}" class='link-hover'>{{ category.name }}</a></p>
-    {% endfor %}
+    <ul class="list-group">
+      <a class="{% if cat_name != "Всі товари" %}link-hover{% endif %}" href="{% url 'goods:index' %}"><li class="list-group-item {% if cat_name == "Всі товари" %}active{% endif %}" aria-current="true">Всі товари</li></a>
+      {% get_categories as categories %}
+      {% for category in categories %}
+      <a href="{% url 'goods:view_category' category.slug %}" class="{% if category.name != cat_name %}link-hover{% endif %}"><li class="list-group-item {% if category.name == cat_name %}active{% endif %}">{{ category.name }}</li></a>
+      {% endfor %}
+    </ul>
   </div>
   <div class="col-12 col-lg-9">
     <div class="container">
@@ -69,7 +75,7 @@
         </a>
         <a href="{% url "carts:cart_add" %}" class="cart-image-container add-to-cart" data-product-id='{{ product.id }}'>
           {% csrf_token %}
-          <img src="{% static 'goods/cart.svg' %}" alt="add to the cart" class='cart-image'>
+          <img src="{% static 'goods/cart.svg' %}" alt="add to the cart" class='cart-image buy'>
         </a>
       </div>
       {% empty %}
