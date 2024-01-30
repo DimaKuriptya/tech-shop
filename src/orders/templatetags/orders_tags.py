@@ -4,7 +4,7 @@ from django.template import Library
 register = Library()
 
 @register.simple_tag
-def get_user_errors(form):
+def get_order_errors(form):
     errors = []
     for _, value in form.errors.items():
         for error in value:

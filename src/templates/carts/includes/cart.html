@@ -43,7 +43,7 @@
     {% endfor %}
     <div>
         <h5>Всього {{ goods.total_quantity }} товарів на суму {{ goods.total_price }} грн.</h5>
-        <a href="#" class='btn btn-success'>Оформити замовлення</a>
+        <a href="{% url "orders:create_order" %}" class='btn btn-success'>Оформити замовлення</a>
     </div>
 {% else %}
     <p>В корзині порожньо</p>

@@ -27,11 +27,11 @@ class Order(models.Model):
     statuses = (
         ("OP", "В обробці"),
         ("PP", "Готується до відправлення"),
-        ("", "Прямує до замовника"),
-        ("", "Прибуло до відділення"),
-        ("", "Очікується оплата"),
-        ("", "Очікує на складі"),
-        ("", "Замовлення відмінено"),
+        ("GT", "Прямує до замовника"),
+        ("AR", "Прибуло до відділення"),
+        ("WP", "Очікується оплата"),
+        ("WS", "Очікує на складі"),
+        ("OC", "Замовлення відмінено"),
     )
 
     buyer = models.ForeignKey(
@@ -60,7 +60,7 @@ class Order(models.Model):
         blank=True, null=True, verbose_name="Коментар до замовлення"
     )
     status = models.CharField(
-        max_length=2, choices=statuses, verbose_name="Статус замовлення"
+        max_length=2, choices=statuses, default='OP', blank=True, verbose_name="Статус замовлення"
     )
     created = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата і час замовлення"
