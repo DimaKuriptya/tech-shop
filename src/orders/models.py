@@ -32,6 +32,7 @@ class Order(models.Model):
         ("WP", "Очікується оплата"),
         ("WS", "Очікує на складі"),
         ("OC", "Замовлення відмінено"),
+        ("DN", "Виконано")
     )
 
     buyer = models.ForeignKey(
