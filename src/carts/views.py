@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from .models import Cart
+from .utils import get_user_carts
 
 
 def cart_add(request):
@@ -23,7 +24,8 @@ def cart_add(request):
         else:
             Cart.objects.create(session_key=request.session.session_key, product_id=product_id)
 
-    cart_items_html = render_to_string('carts/includes/cart.html', request=request)
+    context = {'goods': get_user_carts(request)}
+    cart_items_html = render_to_string('carts/includes/cart.html', request=request, context=context)
     response_data = {
         'cart_items_html': cart_items_html,
         'message': 'Товар успішно додано до корзини'
@@ -43,8 +45,8 @@ def cart_delete(request):
         quantity_deleted = cart.quantity
         cart.delete()
 
-
-    cart_items_html = render_to_string('carts/includes/cart.html', request=request)
+    context = {'goods': get_user_carts(request)}
+    cart_items_html = render_to_string('carts/includes/cart.html', request=request, context=context)
     response_data = {
         'quantity_deleted': quantity_deleted,
         'cart_items_html': cart_items_html
@@ -60,7 +62,8 @@ def cart_change(request):
     cart.quantity = quantity
     cart.save()
 
-    cart_items_html = render_to_string('carts/includes/cart.html', request=request)
+    context = {'goods': get_user_carts(request)}
+    cart_items_html = render_to_string('carts/includes/cart.html', request=request, context=context)
     response_data = {
         'cart_items_html': cart_items_html
     }

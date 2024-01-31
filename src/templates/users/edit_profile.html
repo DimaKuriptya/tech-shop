@@ -6,7 +6,7 @@
 <form method='post' enctype="multipart/form-data">
     {% csrf_token %}
     {% if form.errors %}
-        {% get_errors form as errors %}
+        {% get_user_errors form as errors %}
         <div class="message-container">
             {% for error in errors %}
                 <div class="alert alert-danger alert-dismissible message" role="alert">

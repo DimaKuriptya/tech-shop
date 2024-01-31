@@ -1,7 +1,6 @@
 {% load static %}
 {% load carts_tags %}
 
-{% get_cart request as goods %}
 {% if goods %}
     {% for cart_item in goods %}
     <div class="row align-items-center">

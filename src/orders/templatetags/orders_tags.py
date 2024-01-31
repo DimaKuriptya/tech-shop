@@ -3,6 +3,7 @@ from django.template import Library
 
 register = Library()
 
+
 @register.simple_tag
 def get_order_errors(form):
     errors = []

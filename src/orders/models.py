@@ -67,7 +67,7 @@ class Order(models.Model):
     )
 
     class Meta:
-        ordering = ("created",)
+        ordering = ("-created",)
         verbose_name = "Замовлення"
         verbose_name_plural = "Замовлення"
 

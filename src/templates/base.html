@@ -2,6 +2,8 @@
 {% load goods_tags %}
 {% load carts_tags %}
 
+{% get_cart request as goods %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,7 +65,7 @@
             <li class="nav-item">
               <a class="nav-link active" id="cart-nav" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <img src="{% static 'goods/cart.svg' %}" style='width: 20px;'>
-                <span id='goods-in-cart-count'>{% get_total_quantity request %}</span>
+                <span id='goods-in-cart-count'>{{ goods.total_quantity }}</span>
               </a>
             </li>
             {% endblock  %}
