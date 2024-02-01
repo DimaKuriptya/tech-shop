@@ -3,22 +3,22 @@
 
 {% if goods %}
     {% for cart_item in goods %}
-    <div class="row align-items-center">
-        <div class="col-4 col-lg-2">
-            {% if cart_item.product.photo %}
-            <img src="{{ cart_item.product.photo.url }}" alt="{{ cart_item.product.name }}">
-            {% else %}
-            <img src="{% static 'goods/No-image-found.jpg' %}" alt="">
-            {% endif %}
+    <div style='display: flex; align-items: center; margin: 10px 0;'>
+        <div style='width: 80px; margin-right: 20px;'>
+                {% if cart_item.product.photo %}
+                <img src="{{ cart_item.product.photo.url }}" alt="{{ cart_item.product.name }}">
+                {% else %}
+                <img src="{% static 'goods/No-image-found.jpg' %}" alt="">
+                {% endif %}
         </div>
-        <div class="col-6 col-lg-9" style='display: flex; flex-direction: column; justify-content: center;'>
-            <div>
-                <a href="{% url "goods:product_details" cart_item.product.slug %}" class='link-hover'>
-                    <b>{{ cart_item.product.name }}</b>
-                </a>
-            </div>
-            <div style='display: flex;'>
-                <p class='input-group' style='margin-right: 20px; display: flex;'>
+        <div class='row' style='flex-grow: 1;'>
+            <div class="col-7" style='display: flex; flex-direction: column;'>
+                <div class="">
+                    <a href="{% url "goods:product_details" cart_item.product.slug %}" class='link-hover'>
+                        <b>{{ cart_item.product.name }}</b>
+                    </a>
+                </div>
+                <div class='input-group'>
                     <button class="btn decrement" data-cart-change-url="{% url "carts:cart_change" %}" data-cart-id="{{ cart_item.id }}">
                         {% csrf_token %}
                         -
@@ -28,14 +28,16 @@
                         {% csrf_token %}
                         +
                     </button>
-                </p>
-                <p>{{ cart_item.product_price }} грн.</p>
+                </div>
+            </div>
+            <div class="col-5" style='display: flex; justify-content: center; align-items: center;'>
+                <span>{{ cart_item.product_price }} ₴</span>
             </div>
         </div>
-        <div class="col-2 col-lg-1">
+        <div style='width: 27px; margin-left: 20px;'>
             <a href="{% url "carts:cart_delete" %}" class='remove-from-cart' data-cart-id="{{ cart_item.id }}">
                 {% csrf_token %}
-                <img src="{% static "carts/rubbish-bin.svg" %}" alt="delete product" style='width: 80%;'>
+                <img src="{% static "carts/rubbish-bin.svg" %}" alt="delete product">
             </a>
         </div>
     </div>

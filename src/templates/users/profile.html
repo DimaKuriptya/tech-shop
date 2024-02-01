@@ -44,13 +44,13 @@
         {% endblock  %}
     </div>
     <div class="col-12 col-lg-7">
-        <h3 style="padding-left: 15px;">Моя корзина</h3>
+        <h3 style="padding-left: 15px;">Кошик</h3>
         <div id="cart-items-container">
             {% include 'carts/includes/cart.html' %}
         </div>
     </div>
     <div class="col-12 col-md-9 mt-3">
-        <h3>Історія замовлень</h3>
+        <h3 style="padding-left: 15px;">Історія замовлень</h3>
         <div class="accordion" id="accordionPanelsStayOpenExample">
             {% get_user_orders user as orders %}
             {% for order in orders %}
@@ -80,22 +80,22 @@
                         <span class='hint' style='display: block; margin-bottom: 10px;'>Товари</span>
                         {% for product in order.goods.all %}
                         <div class="row">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-xl-6">
                                 <img src="{{ product.product.photo.url }}" alt="{{ product.name }}" style='width: 50px;'>
                                 <a href="{{ product.product.get_absolute_url }}" class='link-hover' style='margin: 5px;'>
                                     {{ product.name }}
                                 </a>
                             </div>
-                            <div class="col-12 col-md-6" style='display: flex; justify-content: space-between;'>
-                                <div class='ordered-product-detail'>
+                            <div class="col-12 col-xl-6 row">
+                                <div class='ordered-product-detail col'>
                                     <span class='hint-detail'>Ціна</span>
                                     <span class='ordered-product-text'>{{ product.price }} ₴</span>
                                 </div>
-                                <div class="ordered-product-detail">
+                                <div class="ordered-product-detail col">
                                     <span class='hint-detail'>Кількість</span>
                                     <span class='ordered-product-text'>{{ product.quantity }}</span>
                                 </div>
-                                <div class="ordered-product-detail">
+                                <div class="ordered-product-detail col" style='display: flex;'>
                                     <span class='hint-detail'>Сума</span>
                                     <span class='ordered-product-text'>{{ product.product_price }} ₴</span>
                                 </div>

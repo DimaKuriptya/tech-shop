@@ -6,7 +6,7 @@ from goods.models import Product
 
 class OrderQuerySet(models.QuerySet):
     def total_price(self):
-        return sum(product.price for product in self)
+        return sum(product.product_price() for product in self)
 
     def total_quantity(self):
         return sum(product.quantity for product in self)

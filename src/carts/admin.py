@@ -2,6 +2,12 @@ from django.contrib import admin
 from .models import Cart
 
 
+class CartTabAdmin(admin.TabularInline):
+    model = Cart
+    fields = ('owner', 'product', 'quantity')
+    extra = 1
+
+
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     readonly_fields = ('created',)
