@@ -30,6 +30,7 @@
             <input type="hidden" name='next' value='{{ request.GET.next }}'>
         {% endif %}
         <input type="submit" value="Увійти" class='form-control btn btn-primary'>
+        <a href="{% url "users:password_reset" %}" class='link-hover' style='width: fit-content; margin: 10px auto;'>Забули пароль?</a>
     </form>
 </div>
 {% endblock  %}

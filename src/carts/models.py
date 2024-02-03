@@ -23,8 +23,8 @@ class Cart(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Створено')
 
     class Meta:
-        verbose_name = 'Товар корзини'
-        verbose_name_plural = 'Товари корзини'
+        verbose_name = 'Товар кошика'
+        verbose_name_plural = 'Товари кошика'
         ordering = ('owner',)
 
     objects = CartQueryset().as_manager()

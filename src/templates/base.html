@@ -24,7 +24,7 @@
     <div class="message-container">
       {% if messages %}
         {% for message in messages %}
-        {% if message.tags == 'warning' %}
+        {% if message.tags == 'error' %}
           <div class="alert alert-danger alert-dismissible message" role="alert">
             {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -80,7 +80,8 @@
             {% if user.is_authenticated %}
             <ul class="navbar-nav">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0;">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" 
+                data-bs-toggle="dropdown" aria-expanded="false" style="padding: 0; margin: 5px 0;">
                   {% if user.image %}
                   <img src="{{ user.image.url }}" alt="{{ user.username }}" class='mini-profile-pic'>
                   {% else %}

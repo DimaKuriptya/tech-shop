@@ -28,7 +28,7 @@ def cart_add(request):
     cart_items_html = render_to_string('carts/includes/cart.html', request=request, context=context)
     response_data = {
         'cart_items_html': cart_items_html,
-        'message': 'Товар успішно додано до корзини'
+        'message': 'Товар успішно додано до кошика'
     }
     return JsonResponse(response_data)
 

@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from carts.models import Cart
 from carts.utils import get_user_carts
 from .forms import RegistrationForm, LoginForm, UpdateForm
+from .models import User
+from django.contrib.auth.views import PasswordResetView
 
 
 def register_user(request):

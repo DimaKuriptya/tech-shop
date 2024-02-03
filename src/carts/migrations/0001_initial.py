@@ -26,8 +26,8 @@ class Migration(migrations.Migration):
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='goods.product', verbose_name='Товар')),
             ],
             options={
-                'verbose_name': 'Товар корзини',
-                'verbose_name_plural': 'Товари корзини',
+                'verbose_name': 'Товар кошика',
+                'verbose_name_plural': 'Товари кошика',
                 'ordering': ('owner',),
             },
         ),

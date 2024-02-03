@@ -34,7 +34,7 @@ $(document).ready(function () {
             },
 
             error: function (data) {
-                console.log("Помилка при додаванні товара до корзини");
+                console.log("Помилка при додаванні товара до кошика");
             },
         });
     });
@@ -66,7 +66,7 @@ $(document).ready(function () {
             },
 
             error: function (data) {
-                console.log("Помилка при видаленні товару із корзини");
+                console.log("Помилка при видаленні товару із кошика");
             },
         });
     });
