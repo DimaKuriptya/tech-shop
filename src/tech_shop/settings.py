@@ -156,5 +156,8 @@ INTERNAL_IPS = [
 ]
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'tech.shop.corp.mails@gmail.com'
+EMAIL_HOST_PASSWORD = getenv('tech_shop_mail_pass')

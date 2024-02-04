@@ -1,21 +1,10 @@
 {% extends "users/profile.html" %}
 {% load static %}
-{% load users_tags %}
 
 {% block profile %}
 <form method='post' enctype="multipart/form-data">
     {% csrf_token %}
-    {% if form.errors %}
-        {% get_user_errors form as errors %}
-        <div class="message-container">
-            {% for error in errors %}
-                <div class="alert alert-danger alert-dismissible message" role="alert">
-                    {{ error|striptags }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+    {% include "includes/form_errors.html" %}
     <p>
         {% if user.image %}
         <img src="{{ user.image.url }}" alt="{{ user.first_name }} photo" class='profile-pic'>
