@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from os import getenv
 
-from django.conf.global_settings import EMAIL_BACKEND
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -156,8 +154,14 @@ INTERNAL_IPS = [
 ]
 
 
+# Email
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'tech.shop.corp.mails@gmail.com'
 EMAIL_HOST_PASSWORD = getenv('tech_shop_mail_pass')
+
+
+#Stripe
+STRIPE_PUBLISHABLE_KEY = getenv('tech_shop_stripe_publishable_key')
+STRIPE_SECRET_KEY = getenv('tech_shop_stripe_secret_key')
