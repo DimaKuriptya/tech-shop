@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+TECH SHOP - Оплата пройшла успішно
+{% endblock  %}
+
+{% block content %}
+    <div class='row'>
+        <div class="col-12 col-md-6" style='margin: 0 auto;'>
+            <h3>Замовлення №{{ order_id }}</h3>
+            <p>Оплата пройшла успішно, на вашу пошту було надіслано листа з інформацією по замовленню. 
+            {% if user.is_authenticated %}Також ви можете переглядати історію замовлень та слідкувати за їх статусом в 
+            <a href="{% url "users:profile" %}" style='text-decoration: underline;'>особистому кабінеті</a>{% endif %}</p>
+                
+            <a href="{% url "goods:index" %}" class='btn btn-success'>Продовжити покупки</a>
+        </div>
+    </div>
+{% endblock  %}

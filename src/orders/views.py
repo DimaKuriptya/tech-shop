@@ -1,7 +1,11 @@
+from decimal import Decimal
+import stripe
 from django.db import transaction
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
 from django.contrib import messages
+from django.conf import settings
+from django.urls import reverse
 from carts.utils import get_user_carts
 from .forms import OrderForm
 from .models import OrderedProduct
@@ -35,14 +39,40 @@ def create_order(request):
                         cart.product.save()
                     carts.delete()
 
-                    messages.success(request, "Замовлення успішно оформлено")
-                    if request.user.is_authenticated:
-                        return redirect("users:profile")
-                    else:
-                        return redirect("goods:index")
             except ValidationError as e:
-                messages.success(request, e.args[0])
+                messages.error(request, e.args[0])
                 return redirect(request.META["HTTP_REFERER"])
+
+            if order.payment_method == 'PP':
+                stripe.api_key = settings.STRIPE_SECRET_KEY
+                session_data = {
+                    'mode': 'payment',
+                    'success_url': request.build_absolute_uri(reverse('orders:payment_success', kwargs={'order_id': order.pk})),
+                    'cancel_url': request.build_absolute_uri(reverse('orders:payment_fail', kwargs={'order_id': order.pk})),
+                    'line_items': []
+                }
+
+                order_products = OrderedProduct.objects.filter(order=order)
+                for product in order_products:
+                    session_data['line_items'].append({
+                        'price_data': {
+                            'unit_amount': int(product.price) * Decimal(100),
+                            'currency': 'uah',
+                            'product_data': {
+                                'name': product.name
+                            }
+                        },
+                        'quantity': product.quantity
+                    })
+
+                session = stripe.checkout.Session.create(**session_data)
+                return redirect(session.url, code=303)
+
+            messages.success(request, "Замовлення успішно оформлено")
+            if request.user.is_authenticated:
+                return redirect("users:profile")
+            else:
+                return redirect("goods:index")
 
     else:
         if request.user.is_authenticated:
@@ -57,3 +87,19 @@ def create_order(request):
             form = OrderForm()
     context = {"form": form}
     return render(request, "orders/order_creation.html", context)
+
+
+def payment_success(request, order_id=None):
+    if order_id:
+        context = {'order_id': order_id}
+    else:
+        return redirect('goods:index')
+    return render(request, 'orders/payment_success.html', context)
+
+
+def payment_fail(request, order_id=None):
+    if order_id:
+        context = {'order_id': order_id}
+    else:
+        return redirect('goods:index')
+    return render(request, 'orders/payment_fail.html', context)

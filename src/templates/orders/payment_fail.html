@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+TECH SHOP - Помилка при оплаті
+{% endblock  %}
+
+{% block content %}
+    <div class='row'>
+        <div class="col-12 col-md-6" style='margin: 0 auto;'>
+            <h3>Відбулася помилка при оплаті замовлення №{{ order_id }}</h3>
+            <p>
+                {% if user.is_authenticated %}
+                Так як оплата не пройшла, ви можете спробувати оплатити ще раз через деякий час, або змінити спосіб оплати в особистому кабінеті.
+            </p>
+            <a href="{% url "users:profile" %}" class='btn btn-success'>До особистого кабінету</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock  %}
