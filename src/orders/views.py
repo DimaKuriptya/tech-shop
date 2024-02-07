@@ -8,7 +8,7 @@ from django.conf import settings
 from django.urls import reverse
 from carts.utils import get_user_carts
 from .forms import OrderForm
-from .models import OrderedProduct
+from .models import Order, OrderedProduct
 
 
 def create_order(request):

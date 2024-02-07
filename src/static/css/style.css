@@ -180,7 +180,7 @@ a {
 
 .order-info {
     display: flex; 
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -197,4 +197,12 @@ a {
 
 .hint-detail {
     font-size: 11px;
+}
+
+.order-status {
+    width: 5px;
+    height: 30px;
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: #4da9ff;
 }

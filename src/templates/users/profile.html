@@ -56,9 +56,15 @@
             {% for order in orders %}
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" style='display: flex; align-items: center;'
                 data-bs-target="#panelsStayOpen-collapse{{ order.id }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ order.id }}">
-                  Замовлення №{{ order.id }} від {{ order.created }}
+                <div class="order-status" style='background-color: 
+                {% if order.status == 'DN' %}green{% elif order.status == 'OC' %}red{% elif order.status == 'WS' or order.status == 'WP' or order.status == 'AR' %}orange
+                {% else %}#4da9ff{% endif %};'></div>
+                <div>
+                    №{{ order.id }} від {{ order.created }} <br>
+                    {{ order.get_status_display }}
+                </div>
                 </button>
               </h2>
               <div id="panelsStayOpen-collapse{{ order.id }}" class="accordion-collapse collapse">
@@ -104,7 +110,7 @@
                         <hr>
                         {% endfor %}
                         <p class='order-info'>
-                            <span class='hint'>Оплата</span> {{ order.get_payment_method_display }}
+                            <span class='hint'>Оплата {% if order.is_paid %}(Оплачено){% endif %}</span> {{ order.get_payment_method_display }}
                         </p>
                         <p class='order-info'>
                             <span class='hint'>Разом</span> {{ order.goods.total_price }} грн.
