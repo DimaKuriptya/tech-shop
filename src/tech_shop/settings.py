@@ -165,3 +165,4 @@ EMAIL_HOST_PASSWORD = getenv('tech_shop_mail_pass')
 #Stripe
 STRIPE_PUBLISHABLE_KEY = getenv('tech_shop_stripe_publishable_key')
 STRIPE_SECRET_KEY = getenv('tech_shop_stripe_secret_key')
+STRIPE_WEBHOOK_SECRET = getenv('tech_shop_stripe_webhook_secret')

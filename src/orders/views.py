@@ -49,7 +49,8 @@ def create_order(request):
                     'mode': 'payment',
                     'success_url': request.build_absolute_uri(reverse('orders:payment_success', kwargs={'order_id': order.pk})),
                     'cancel_url': request.build_absolute_uri(reverse('orders:payment_fail', kwargs={'order_id': order.pk})),
-                    'line_items': []
+                    'line_items': [],
+                    'order_id': order.id
                 }
 
                 order_products = OrderedProduct.objects.filter(order=order)
