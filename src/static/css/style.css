@@ -11,6 +11,11 @@ hr {
     color: #afafaf;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -25,11 +30,6 @@ hr {
 #nav {
     padding-top: 10px;
     padding-bottom: 10px;
-}
-
-a {
-    text-decoration: none;
-    color: black;
 }
 
 .discount-block {
