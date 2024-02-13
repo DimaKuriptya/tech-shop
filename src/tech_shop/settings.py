@@ -27,7 +27,7 @@ SECRET_KEY = getenv("tech_shop_key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -90,9 +90,11 @@ WSGI_APPLICATION = "tech_shop.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "tech_shop",
-        "USER": "postgres",
-        "PASSWORD": "123",
+        'HOST': getenv('POSTGRES_HOST'),
+        'PORT': getenv('POSTGRES_PORT'),
+        "NAME": getenv('POSTGRES_DB'),
+        "USER": getenv('POSTGRES_USER'),
+        "PASSWORD": getenv('POSTGRES_PASSWORD'),
     }
 }
 
@@ -166,3 +168,10 @@ EMAIL_HOST_PASSWORD = getenv('tech_shop_mail_pass')
 STRIPE_PUBLISHABLE_KEY = getenv('tech_shop_stripe_publishable_key')
 STRIPE_SECRET_KEY = getenv('tech_shop_stripe_secret_key')
 STRIPE_WEBHOOK_SECRET = getenv('tech_shop_stripe_webhook_secret')
+
+
+#Celery
+CELERY_BROKER_URL = 'redis:6379'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_EXTENDED = True
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
