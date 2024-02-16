@@ -157,6 +157,7 @@ INTERNAL_IPS = [
 
 
 # Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -171,7 +172,4 @@ STRIPE_WEBHOOK_SECRET = getenv('tech_shop_stripe_webhook_secret')
 
 
 #Celery
-CELERY_BROKER_URL = 'redis:6379'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_RESULT_EXTENDED = True
-CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_BROKER_URL = 'redis://redis:6379'
