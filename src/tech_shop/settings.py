@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from os import getenv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv("tech_shop_key")
+SECRET_KEY = getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -161,17 +164,16 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'tech.shop.corp.mails@gmail.com'
-EMAIL_HOST_PASSWORD = getenv('tech_shop_mail_pass')
+EMAIL_HOST_PASSWORD = getenv('EMAIL_PASSWORD')
 
 
 #Stripe
-STRIPE_PUBLISHABLE_KEY = getenv('tech_shop_stripe_publishable_key')
-STRIPE_SECRET_KEY = getenv('tech_shop_stripe_secret_key')
-STRIPE_WEBHOOK_SECRET = getenv('tech_shop_stripe_webhook_secret')
+STRIPE_PUBLISHABLE_KEY = getenv('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = getenv('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = getenv('STRIPE_WEBHOOK_SECRET')
 
 
 #Celery
-CELERY_BROKER_URL = 'redis:6379'
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_EXTENDED = True
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
