@@ -9,6 +9,7 @@ from django.conf import settings
 from django.urls import reverse
 from carts.utils import get_user_carts
 
+from .models import OrderedProduct
 from .forms import OrderForm
 from . import tasks
 
