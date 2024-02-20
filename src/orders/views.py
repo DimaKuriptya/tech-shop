@@ -1,16 +1,19 @@
 from decimal import Decimal
 import stripe
 
+
 from django.db import transaction
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse
+
 from carts.utils import get_user_carts
 
 from .models import OrderedProduct
 from .forms import OrderForm
+from .models import OrderedProduct
 from . import tasks
 
 
@@ -74,7 +77,7 @@ def create_order(request):
                 return redirect(session.url, code=303)
 
             messages.success(request, "Замовлення успішно оформлено")
-            tasks.send_successful_order_mail.delay()
+            tasks.send_successful_order_mail.delay(order.id)
 
             if request.user.is_authenticated:
                 return redirect("users:profile")
