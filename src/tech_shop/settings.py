@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "django.contrib.postgres",
     "phonenumber_field",
+    'django_celery_results',
 
     "main.apps.MainConfig",
     "goods.apps.GoodsConfig",
@@ -175,5 +176,7 @@ STRIPE_WEBHOOK_SECRET = getenv('STRIPE_WEBHOOK_SECRET')
 
 #Celery
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_RESULT_EXTENDED = True
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True

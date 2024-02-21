@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Order
+from . import tasks
 
 
 @csrf_exempt
@@ -36,5 +37,7 @@ def stripe_webhook(request):
             order = Order.objects.get(id=order_id)
             order.is_paid = True
             order.save()
+
+            tasks.send_successful_order_mail.delay(order.id)
 
     return HttpResponse(status=200)

@@ -17,6 +17,6 @@ def send_successful_order_mail(order_id):
         f'Ваше замовлення №{order_id} успішно прийнято',
         f'Ваше замовлення №{order_id} успішно прийнято',
         settings.EMAIL_HOST_USER,
-        ['dima343782@gmail.com'],
+        [order.email],
         html_message=render_to_string('orders/includes/order_email.html', {'order': order}))
     return True
