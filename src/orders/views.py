@@ -1,6 +1,7 @@
 from decimal import Decimal
 import stripe
 
+
 from django.db import transaction
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
@@ -9,6 +10,8 @@ from django.conf import settings
 from django.urls import reverse
 
 from carts.utils import get_user_carts
+
+from .models import OrderedProduct
 from .forms import OrderForm
 from .models import OrderedProduct
 from . import tasks
@@ -69,6 +72,7 @@ def create_order(request):
                         'quantity': product.quantity
                     })
 
+                tasks.send_successful_order_mail.delay()
                 session = stripe.checkout.Session.create(**session_data)
                 return redirect(session.url, code=303)
 
