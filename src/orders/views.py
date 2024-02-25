@@ -39,7 +39,7 @@ def create_order(request):
                             product=cart.product,
                             name=cart.product.name,
                             quantity=cart.quantity,
-                            price=cart.product.sell_price(),
+                            price=cart.product.sell_price,
                         )
                         cart.product.storage_quantity -= cart.quantity
                         cart.product.save()

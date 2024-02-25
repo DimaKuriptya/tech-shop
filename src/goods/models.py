@@ -50,12 +50,14 @@ class Product(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    @property
     def get_id(self):
         return str(self.pk).zfill(5)
 
+    @property
     def sell_price(self):
         if self.discount_price:
-            return self.discount_price
+            return min(self.discount_price, self.price)
         return self.price
 
     def get_absolute_url(self):

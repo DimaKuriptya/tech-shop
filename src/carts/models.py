@@ -35,4 +35,4 @@ class Cart(models.Model):
         return f'session key {self.session_key} wants to buy {self.quantity}x of {self.product.name}'
 
     def product_price(self):
-        return round(self.product.sell_price() * self.quantity, 2)
+        return round(self.product.sell_price * self.quantity, 2)
