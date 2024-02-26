@@ -16,6 +16,7 @@ class CategoryFactory(factory.django.DjangoModelFactory):
         model = Category
 
     name = "Холодильники"
+    slug = "fridges"
 
 
 class ProductFactory(factory.django.DjangoModelFactory):
@@ -23,6 +24,7 @@ class ProductFactory(factory.django.DjangoModelFactory):
         model = Product
 
     name = "Холодильник"
+    slug = "fridge"
     description = fake.text()
     category = factory.SubFactory(CategoryFactory)
     price = 10000

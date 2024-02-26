@@ -27,7 +27,7 @@ def index(request, cat_slug=None):
     else:
         cat_name = "Всі товари"
 
-    quantity = len(products)
+    quantity = products.count()
     p = Paginator(products, 2)
     page = p.page(page_num)
     form = FilterForm(request.GET)

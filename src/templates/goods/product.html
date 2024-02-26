@@ -8,7 +8,11 @@
 {% block content %}
     <div class="row">
         <div class="col-md-5 col-sm-12" style="position: relative;">
-            <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="width: 100%;">
+            {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.name }}" style="width: 100%;">
+            {% else %}
+                <img src="{% static 'goods/No-image-found.jpg' %}" alt="">
+            {% endif %}
             {% if product.storage_quantity <= 4 %}
                 <p class="ending">Закінчується</p>
             {% endif %}
