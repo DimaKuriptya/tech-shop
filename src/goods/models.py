@@ -20,7 +20,7 @@ class Product(models.Model):
     name = models.CharField(max_length=300, verbose_name="Назва")
     slug = models.SlugField(unique=True, blank=True, null=True, verbose_name="URL")
     description = models.TextField(verbose_name="Опис")
-    category_id = models.ForeignKey(
+    category = models.ForeignKey(
         "Category",
         on_delete=models.SET_NULL,
         null=True,

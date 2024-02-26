@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True, verbose_name='Активний товар')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата створення')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Дата оновлення')),
-                ('category_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='products', to='goods.category', verbose_name='Категорія')),
+                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='products', to='goods.category', verbose_name='Категорія')),
             ],
             options={
                 'verbose_name': 'Товар',

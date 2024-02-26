@@ -22,7 +22,7 @@ def index(request, cat_slug=None):
     if order_by:
         products = products.order_by(order_by)
     if cat_slug:
-        products = products.filter(category_id__slug=cat_slug)
+        products = products.filter(category__slug=cat_slug)
         cat_name = Category.objects.get(slug=cat_slug).name
     else:
         cat_name = "Всі товари"
