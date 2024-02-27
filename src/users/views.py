@@ -19,7 +19,6 @@ def register_user(request):
             user.save()
             login(request, user)
 
-            # Transferring anonymous user's cart to the account he registered
             session_carts = Cart.objects.filter(session_key=session_key)
             if session_carts.exists():
                 user_carts = get_user_carts(request)
@@ -37,6 +36,8 @@ def register_user(request):
 
             messages.success(request, "Ви успішно створили новий аккаунт")
             return redirect(to="goods:index")
+        else:
+            return render(request, "users/registration.html", {'form': form}, status=422)
     else:
         form = RegistrationForm()
     context = {"form": form}
@@ -55,7 +56,6 @@ def login_user(request):
         if user:
             login(request, user)
 
-            # Transferring anonymous user's cart to the account he logged in
             session_carts = Cart.objects.filter(session_key=session_key)
             if session_carts:
                 user_carts = get_user_carts(request)

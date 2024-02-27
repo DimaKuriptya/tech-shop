@@ -8,7 +8,7 @@ from users.models import User
 from orders.models import Order, OrderedProduct
 
 
-fake = Faker()
+fake = Faker("uk_UA")
 
 
 class CategoryFactory(factory.django.DjangoModelFactory):
@@ -37,9 +37,12 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
-    email = fake.email()
     first_name = fake.first_name()
     last_name = fake.last_name()
+    email = fake.email()
+    username = email
+    password = fake.password()
+    phone_number = "0660000000"
     is_staff = fake.boolean()
     is_superuser = fake.boolean()
 

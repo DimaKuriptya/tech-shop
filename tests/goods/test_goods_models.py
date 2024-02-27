@@ -1,9 +1,5 @@
 import pytest
 
-# from contextlib import nullcontext as does_not_raise
-
-# from django.core.exceptions import ValidationError
-
 
 class TestProductModel:
     @pytest.mark.parametrize(
