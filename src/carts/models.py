@@ -6,7 +6,7 @@ from users.models import User
 class CartQueryset(models.QuerySet):
     def total_price(self):
         if self:
-            return round(sum(cart.product_price() for cart in self), 2)
+            return round(sum(cart.product_price for cart in self), 2)
         return 0
 
     def total_quantity(self):
@@ -34,5 +34,6 @@ class Cart(models.Model):
             return f'{self.owner.email} wants to buy {self.quantity}x of {self.product.name}'
         return f'session key {self.session_key} wants to buy {self.quantity}x of {self.product.name}'
 
+    @property
     def product_price(self):
         return round(self.product.sell_price * self.quantity, 2)

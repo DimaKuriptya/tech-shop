@@ -6,7 +6,7 @@ from goods.models import Product
 
 class OrderQuerySet(models.QuerySet):
     def total_price(self):
-        return sum(product.product_price() for product in self)
+        return sum(product.product_price for product in self)
 
     def total_quantity(self):
         return sum(product.quantity for product in self)
@@ -104,5 +104,6 @@ class OrderedProduct(models.Model):
     def __str__(self):
         return f"Замовлення №{self.order.pk} | замовлено {self.name} в кількості {self.quantity}"
 
+    @property
     def product_price(self):
         return round(self.price * self.quantity, 2)

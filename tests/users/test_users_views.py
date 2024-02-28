@@ -3,7 +3,7 @@ from faker import Faker
 
 from django.urls import reverse
 
-from users.forms import RegistrationForm, LoginForm, UpdateForm
+from users.forms import RegistrationForm
 from users.models import User
 
 

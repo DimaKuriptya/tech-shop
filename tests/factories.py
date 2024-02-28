@@ -40,11 +40,19 @@ class UserFactory(factory.django.DjangoModelFactory):
     first_name = fake.first_name()
     last_name = fake.last_name()
     email = fake.email()
-    username = email
+    username = "user1"
     password = fake.password()
     phone_number = "0660000000"
-    is_staff = fake.boolean()
-    is_superuser = fake.boolean()
+    is_active = True
+    is_staff = False
+
+    @classmethod
+    def _create(cls, model_class, *args, **kwargs):
+        manager = cls._get_manager(model_class)
+        if "is_superuser" in kwargs:
+            return manager.create_superuser(*args, **kwargs)
+        else:
+            return manager.create_user(*args, **kwargs)
 
 
 class CartFactory(factory.django.DjangoModelFactory):
@@ -79,6 +87,6 @@ class OrderedProductFactory(factory.django.DjangoModelFactory):
 
     order = factory.SubFactory(OrderFactory)
     product = factory.SubFactory(ProductFactory)
-    name = "Холодильник"
+    name = fake.word()
     quantity = 10
     price = 10000

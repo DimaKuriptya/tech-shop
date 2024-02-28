@@ -1,6 +1,6 @@
 from decimal import Decimal
+from django.http import HttpResponse
 import stripe
-
 
 from django.db import transaction
 from django.forms import ValidationError
@@ -8,12 +8,12 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse
+from django.http import HttpResponse
 
 from carts.utils import get_user_carts
 
 from .models import OrderedProduct
 from .forms import OrderForm
-from .models import OrderedProduct
 from . import tasks
 
 
@@ -44,11 +44,9 @@ def create_order(request):
                         cart.product.storage_quantity -= cart.quantity
                         cart.product.save()
                     carts.delete()
-
             except ValidationError as e:
                 messages.error(request, e.args[0])
                 return redirect(request.META["HTTP_REFERER"])
-
             if order.payment_method == 'PP':
                 stripe.api_key = settings.STRIPE_SECRET_KEY
                 session_data = {
@@ -75,10 +73,8 @@ def create_order(request):
                 tasks.send_successful_order_mail.delay()
                 session = stripe.checkout.Session.create(**session_data)
                 return redirect(session.url, code=303)
-
             messages.success(request, "Замовлення успішно оформлено")
             tasks.send_successful_order_mail.delay(order.id)
-
             if request.user.is_authenticated:
                 return redirect("users:profile")
             else:
