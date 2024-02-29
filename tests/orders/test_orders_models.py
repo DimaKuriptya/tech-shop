@@ -1,8 +1,9 @@
+from decimal import Decimal
 import pytest
+from faker import Faker
+
 from django.db.utils import IntegrityError
 from orders.models import OrderedProduct
-from decimal import Decimal
-from faker import Faker
 
 
 fake = Faker("uk_UA")

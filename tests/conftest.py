@@ -45,8 +45,9 @@ def adminuser(db, user_factory):
 
 @pytest.fixture
 def get_authorized(db, client):
-    User.objects.create_user(username="testuser", password="dashdah23h1uh8")
+    user = User.objects.create_user(username="testuser", password="dashdah23h1uh8")
     client.login(username="testuser", password="dashdah23h1uh8")
+    return user
 
 
 @pytest.fixture
@@ -57,12 +58,22 @@ def order(db, order_factory):
 @pytest.fixture
 def order_form():
     return {
-        'first_name': 'test',
-        'last_name': 'test',
+        'first_name': fake.first_name(),
+        'last_name': fake.last_name(),
         'phone_number': '0660000000',
-        'email': 'test@gmail.com',
+        'email': fake.email(),
         'delivery_method': 'NP',
         'payment_method': 'CD',
         'extra_comment': fake.text(),
         'is_paid': True
     }
+
+
+@pytest.fixture
+def cart(db, cart_factory):
+    return cart_factory.create()
+
+
+@pytest.fixture
+def cart_unathorized(db, cart_factory):
+    return cart_factory.create(owner=None, session_key='test_session_key')

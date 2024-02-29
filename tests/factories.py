@@ -1,5 +1,5 @@
+from decimal import Decimal
 import factory
-
 from faker import Faker
 
 from goods.models import Product, Category
@@ -27,8 +27,8 @@ class ProductFactory(factory.django.DjangoModelFactory):
     slug = "fridge"
     description = fake.text()
     category = factory.SubFactory(CategoryFactory)
-    price = 10000
-    discount_price = 8500
+    price = Decimal("10000")
+    discount_price = Decimal("8500")
     storage_quantity = 10
     is_active = fake.boolean()
 
@@ -39,7 +39,7 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     first_name = fake.first_name()
     last_name = fake.last_name()
-    email = fake.email()
+    email = 'test@gmail.com'
     username = "user1"
     password = fake.password()
     phone_number = "0660000000"
