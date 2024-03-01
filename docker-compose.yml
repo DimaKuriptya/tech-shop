@@ -9,7 +9,7 @@ services:
     image: postgres
     restart: always
     volumes:
-      - C:\Users\dima3\OneDrive\Робочий стіл\psql_docker:/var/lib/postgresql/data
+      - /psql_data/:/var/lib/postgresql/data
     env_file:
       - .env
 
@@ -27,12 +27,19 @@ services:
     command: >
       bash -c "python ./src/manage.py migrate && python src/manage.py loaddata src/fixtures/db.json && python ./src/manage.py runserver 0.0.0.0:8000"
 
+  stripe-cli:
+    image: stripe/stripe-cli
+    restart: always
+    depends_on:
+      - webapp
+    command: "listen --api-key ${STRIPE_SECRET_KEY} --forward-to webapp:8000/orders/stripe-webhook/"
+    env_file:
+      - .env
+
   worker:
     build: .
     restart: always
     depends_on:
-      - redis
-      - postgres
       - webapp
     command: >
       bash -c "celery --workdir=./src -A tech_shop worker"

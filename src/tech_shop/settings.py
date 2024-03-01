@@ -30,7 +30,7 @@ SECRET_KEY = getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'webapp']
 
 
 # Application definition
@@ -46,13 +46,13 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "django.contrib.postgres",
     "phonenumber_field",
-    'django_celery_results',
+    "django_celery_results",
 
     "main.apps.MainConfig",
     "goods.apps.GoodsConfig",
     "users.apps.UsersConfig",
-    'carts.apps.CartsConfig',
-    'orders.apps.OrdersConfig',
+    "carts.apps.CartsConfig",
+    "orders.apps.OrdersConfig",
 ]
 
 MIDDLEWARE = [
@@ -176,7 +176,8 @@ STRIPE_WEBHOOK_SECRET = getenv('STRIPE_WEBHOOK_SECRET')
 
 
 #Celery
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = getenv('REDIS_URL')
+
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_CACHE_BACKEND = 'django-cache'
 CELERY_RESULT_EXTENDED = True

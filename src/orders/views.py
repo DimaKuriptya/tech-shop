@@ -69,7 +69,6 @@ def create_order(request):
                         'quantity': product.quantity
                     })
 
-                tasks.send_successful_order_mail.delay()
                 session = stripe.checkout.Session.create(**session_data)
                 return redirect(session.url, code=303)
             messages.success(request, "Замовлення успішно оформлено")
