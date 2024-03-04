@@ -38,5 +38,6 @@ def index(request, cat_slug=None):
 
 def product_details(request, slug):
     product = get_object_or_404(Product, slug=slug)
-    context = {"product": product}
+    similar_products = Product.objects.filter(category=product.category).exclude(id=product.id)[:5]
+    context = {"product": product, "similar_products": similar_products}
     return render(request, "goods/product.html", context)
