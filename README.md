@@ -9,7 +9,7 @@ This is an online shop project. It was created by using such technologies as:
 - HTML / CSS + Bootstrap
 - Docker / Docker Compose
 - Pytest
-## Installation
+## Running with Docker
 First of all create project folder and select it:
 ```
 mkdir proj_folder
@@ -22,11 +22,27 @@ Then clone the repository:
 ```
 git clone https://github.com/DimaKuriptya/tech-shop.git
 ```
-Make sure you have installed docker and run the following command:
+Create .env file. Set the following fields:
+
+- `SECRET_KEY` - secures HTTP sessions, set to a random value.
+- `EMAIL_HOST` - the SMTP server.
+- `EMAIL_HOST_USER` - the SMTP username.
+- `EMAIL_HOST_PASSWORD` - the SMTP password.
+- `STRIPE_PUBLISHABLE_KEY` - the value you can get by creating an Stripe account.
+- `STRIPE_SECRET_KEY` - the value you can get by creating an Stripe account.
+- `STRIPE_WEBHOOK_SECRET` - the value you can get by creating an Stripe account
+- `POSTGRES_HOST`=postgres
+- `POSTGRES_PORT`=5432
+- `POSTGRES_DB`=tech_shop
+- `POSTGRES_USER`=postgres
+- `POSTGRES_PASSWORD`=123
+- `REDIS_URL`=redis://redis:6379
+
+Create and start containers:
 ```
 docker-compose up
 ```
-After building you will be able to access the project on your localhost:8000 URL.
+After building you will be able to access the project at http://localhost:8000 URL.
 ## Gallery
 ### Here you can see the main pages of the project <br />
 Goods browsing page: <br />
