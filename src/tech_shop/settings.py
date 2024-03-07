@@ -43,10 +43,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    "debug_toolbar",
+    "rest_framework",
     "django.contrib.postgres",
-    "phonenumber_field",
     "django_celery_results",
+    "debug_toolbar",
+    "phonenumber_field",
 
     "main.apps.MainConfig",
     "goods.apps.GoodsConfig",
@@ -127,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "uk"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Kiev"
 
 USE_I18N = True
 
@@ -162,11 +163,11 @@ INTERNAL_IPS = [
 
 # Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = getenv('EMAIL_HOST')
+EMAIL_HOST_USER = getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'tech.shop.corp.mails@gmail.com'
-EMAIL_HOST_PASSWORD = getenv('EMAIL_PASSWORD')
 
 
 #Stripe
