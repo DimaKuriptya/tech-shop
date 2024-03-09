@@ -24,7 +24,7 @@ class ProductFactory(factory.django.DjangoModelFactory):
         model = Product
 
     name = "Холодильник"
-    slug = "fridge"
+    slug = fake.word()
     description = fake.text()
     category = factory.SubFactory(CategoryFactory)
     price = Decimal("10000")

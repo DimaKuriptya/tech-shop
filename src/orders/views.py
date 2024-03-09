@@ -3,14 +3,14 @@ import stripe
 
 from django.db import transaction
 from django.forms import ValidationError
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.conf import settings
 from django.urls import reverse
 
 from carts.utils import get_user_carts
 
-from .models import OrderedProduct
+from .models import Order, OrderedProduct
 from .forms import OrderForm
 from . import tasks
 
@@ -94,7 +94,7 @@ def create_order(request):
 
 
 def payment_success(request, order_id=None):
-    if order_id:
+    if order_id and Order.objects.filter(id=order_id).exists():
         context = {'order_id': order_id}
     else:
         return redirect('goods:index')
@@ -102,7 +102,7 @@ def payment_success(request, order_id=None):
 
 
 def payment_fail(request, order_id=None):
-    if order_id:
+    if order_id and Order.objects.filter(id=order_id).exists():
         context = {'order_id': order_id}
     else:
         return redirect('goods:index')

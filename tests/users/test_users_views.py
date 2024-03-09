@@ -103,6 +103,16 @@ class TestUsersViews:
         response = client.get(url)
         assert response.status_code == 302
 
+    def test_logout_user_view(self, client, get_authorized):
+        url = reverse("users:logout")
+        response = client.get(url)
+        assert response.status_code == 302
+
+    def test_update_profile_view(self, client, get_authorized):
+        url = reverse("users:edit_profile")
+        response = client.post(url, data={"first_name": "test"})
+        assert response.status_code == 200
+
 
 class TestUsersForms:
     @pytest.mark.parametrize(

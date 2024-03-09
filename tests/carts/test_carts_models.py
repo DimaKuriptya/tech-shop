@@ -16,13 +16,11 @@ def test_total_quanity(product):
 
 
 @pytest.mark.django_db
-def test_total_price():
-    p1 = Product.objects.create(price=1000)
-    p2 = Product.objects.create(price=Decimal("950.99"))
+def test_total_price(category, product_factory):
+    p1 = product_factory.create(price=Decimal(1000.50), category=category)
     Cart.objects.create(product=p1, quantity=3)
-    Cart.objects.create(product=p2, quantity=2)
     qs = Cart.objects.all()
-    assert qs.total_price() == Decimal("4901.98")
+    assert qs.total_price() == Decimal("3001.50")
 
 
 @pytest.mark.django_db
