@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/', include('goods.api.urls', namespace='goods_api')),
     path('users/', include('users.urls', namespace='users')),
     path('carts/', include('carts.urls', namespace='carts')),
+    path('api/carts/', include('carts.api.urls', namespace='carts_api')),
     path('orders/', include('orders.urls', namespace='orders')),
 ]
 
